@@ -1,5 +1,5 @@
-use sea_orm_migration::prelude::*;
 use crate::m20220101_000001_create_table::User;
+use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -14,12 +14,7 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(Home::Table)
                     .if_not_exists()
-                    .col(
-                        ColumnDef::new(Home::Id)
-                            .uuid()
-                            .not_null()
-                            .primary_key(),
-                    )
+                    .col(ColumnDef::new(Home::Id).uuid().not_null().primary_key())
                     .col(ColumnDef::new(Home::Title).string())
                     .col(ColumnDef::new(Home::Description).string())
                     .col(ColumnDef::new(Home::Guests).string())
@@ -31,7 +26,12 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Home::CategoryName).integer())
                     .col(ColumnDef::new(Home::CreatedAt).date_time().not_null())
                     .col(ColumnDef::new(Home::UserId).string())
-                    .foreign_key(ForeignKey::create().name("fk-homes-users-id").from(Home::Table,Home::UserId).to(User::Table,User::Id))
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-homes-users-id")
+                            .from(Home::Table, Home::UserId)
+                            .to(User::Table, User::Id),
+                    )
                     .to_owned(),
             )
             .await
@@ -47,7 +47,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-pub enum Home{
+pub enum Home {
     Table,
     Id,
     Title,

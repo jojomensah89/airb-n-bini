@@ -13,12 +13,7 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(User::Table)
                     .if_not_exists()
-                    .col(
-                        ColumnDef::new(User::Id)
-                            .string()
-                            .not_null()
-                            .primary_key(),
-                    )
+                    .col(ColumnDef::new(User::Id).string().not_null().primary_key())
                     .col(ColumnDef::new(User::Email).string().not_null())
                     .col(ColumnDef::new(User::FirstName).string().not_null())
                     .col(ColumnDef::new(User::LastName).string().not_null())
@@ -45,5 +40,4 @@ pub enum User {
     FirstName,
     LastName,
     ProfileImage,
-
 }

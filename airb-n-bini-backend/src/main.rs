@@ -33,6 +33,5 @@ async fn server() {
 }
 
 async fn home() -> impl IntoResponse {
-
     (StatusCode::ACCEPTED, "Hey There")
 }

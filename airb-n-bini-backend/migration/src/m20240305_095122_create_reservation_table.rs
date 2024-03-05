@@ -1,6 +1,6 @@
-use sea_orm_migration::prelude::*;
 use crate::m20220101_000001_create_table::User;
 use crate::m20240305_095038_create_home_table::Home;
+use sea_orm_migration::prelude::*;
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
@@ -20,13 +20,31 @@ impl MigrationTrait for Migration {
                             .not_null()
                             .primary_key(),
                     )
-                    .col(ColumnDef::new(Reservation::StartDate).date_time().not_null())
+                    .col(
+                        ColumnDef::new(Reservation::StartDate)
+                            .date_time()
+                            .not_null(),
+                    )
                     .col(ColumnDef::new(Reservation::EndDate).date_time().not_null())
-                    .col(ColumnDef::new(Reservation::CreatedAt).date_time().not_null())
+                    .col(
+                        ColumnDef::new(Reservation::CreatedAt)
+                            .date_time()
+                            .not_null(),
+                    )
                     .col(ColumnDef::new(Reservation::UserId).string())
                     .col(ColumnDef::new(Reservation::HomeId).uuid())
-                    .foreign_key(ForeignKey::create().name("fk-reservations-users-id").from(Reservation::Table,Reservation::UserId).to(User::Table,User::Id))
-                    .foreign_key(ForeignKey::create().name("fk-reservations-homes-id").from(Reservation::Table,Reservation::HomeId).to(Home::Table,Home::Id))
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-reservations-users-id")
+                            .from(Reservation::Table, Reservation::UserId)
+                            .to(User::Table, User::Id),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-reservations-homes-id")
+                            .from(Reservation::Table, Reservation::HomeId)
+                            .to(Home::Table, Home::Id),
+                    )
                     .to_owned(),
             )
             .await
@@ -42,12 +60,12 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Reservation{
+enum Reservation {
     Table,
     Id,
     StartDate,
     EndDate,
     CreatedAt,
     UserId,
-    HomeId
+    HomeId,
 }
