@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { MapFilterItems } from "@/components/MapFilterItems";
 
 export default function Home() {
   return (
-    <main className="flex  flex-col items-center justify-between p-24">
-     
+    <main className="container mx-auto px-5 lg:px-10">
+      <MapFilterItems />
     </main>
   );
 }
