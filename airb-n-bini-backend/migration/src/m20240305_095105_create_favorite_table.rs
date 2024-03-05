@@ -41,6 +41,7 @@ impl MigrationTrait for Migration {
     }
 }
 
+#[derive(DeriveIden)]
 enum Favorite{
     Table,
     Id,

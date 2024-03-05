@@ -47,7 +47,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Home{
+pub enum Home{
     Table,
     Id,
     Title,

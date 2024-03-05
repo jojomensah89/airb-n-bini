@@ -25,8 +25,8 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Reservation::CreatedAt).date_time().not_null())
                     .col(ColumnDef::new(Reservation::UserId).string())
                     .col(ColumnDef::new(Reservation::HomeId).uuid())
-                    .foreign_key(ForeignKey::create().name("fk-reservations-users-id").from(Favorite::Table,Favorite::UserId).to(User::Table,User::Id))
-                    .foreign_key(ForeignKey::create().name("fk-reservations-homes-id").from(Favorite::Table,Favorite::HomeId).to(Home::Table,Home::Id))
+                    .foreign_key(ForeignKey::create().name("fk-reservations-users-id").from(Reservation::Table,Reservation::UserId).to(User::Table,User::Id))
+                    .foreign_key(ForeignKey::create().name("fk-reservations-homes-id").from(Reservation::Table,Reservation::HomeId).to(Home::Table,Home::Id))
                     .to_owned(),
             )
             .await
