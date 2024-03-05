@@ -5,7 +5,7 @@ mod controllers;
 mod models;
 mod routes;
 mod utils;
-use routes::{home_routes::home_routes,user_routes::user_routes};
+use routes::{home_routes::home_routes, user_routes::user_routes};
 use utils::constants::DATABASE_URL;
 
 #[tokio::main]
@@ -34,7 +34,6 @@ async fn server() {
     axum::serve(listener, app.into_make_service())
         .await
         .unwrap();
-
 }
 
 async fn home() -> impl IntoResponse {
