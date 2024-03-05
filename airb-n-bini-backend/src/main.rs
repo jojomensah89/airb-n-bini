@@ -5,6 +5,7 @@ mod controllers;
 mod models;
 mod routes;
 mod utils;
+use routes::{home_routes::home_routes,user_routes::user_routes};
 use utils::constants::DATABASE_URL;
 
 #[tokio::main]
@@ -19,17 +20,21 @@ async fn server() {
         .await
         .expect("Failed to connect to database");
 
-    let app: Router = Router::new().route("/", get(home)).layer(Extension(db));
+    let app: Router = Router::new()
+        .route("/", get(home))
+        .merge(user_routes().await)
+        .merge(home_routes().await)
+        .layer(Extension(db));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080")
         .await
         .unwrap();
 
+    println!("Server started on port: {}", "http://localhost:8080/");
     axum::serve(listener, app.into_make_service())
         .await
         .unwrap();
 
-    println!("Server started on port: {}", "http://localhost:8080/");
 }
 
 async fn home() -> impl IntoResponse {

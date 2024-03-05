@@ -1,9 +1,7 @@
 use crate::{models::user_model::CreateUserModel, utils::api_error::APIError};
 use axum::{http::StatusCode, Extension, Json};
 use entity::user::{self as User, ActiveModel};
-use sea_orm::{
-    ActiveModelTrait, ActiveValue, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set,
-};
+use sea_orm::{ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set};
 
 pub async fn create_user(
     Extension(db): Extension<DatabaseConnection>,
