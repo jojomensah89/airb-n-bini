@@ -1,5 +1,6 @@
 use sea_orm_migration::prelude::*;
-
+use crate::m20220101_000001_create_table::User;
+use crate::m20240305_095038_create_home_table::Home;
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
@@ -7,7 +8,6 @@ pub struct Migration;
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // Replace the sample below with your own migration scripts
-        todo!();
 
         manager
             .create_table(
@@ -25,6 +25,8 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Reservation::CreatedAt).date_time().not_null())
                     .col(ColumnDef::new(Reservation::UserId).string())
                     .col(ColumnDef::new(Reservation::HomeId).uuid())
+                    .foreign_key(ForeignKey::create().name("fk-reservations-users-id").from(Favorite::Table,Favorite::UserId).to(User::Table,User::Id))
+                    .foreign_key(ForeignKey::create().name("fk-reservations-homes-id").from(Favorite::Table,Favorite::HomeId).to(Home::Table,Home::Id))
                     .to_owned(),
             )
             .await
@@ -32,7 +34,6 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // Replace the sample below with your own migration scripts
-        todo!();
 
         manager
             .drop_table(Table::drop().table(Reservation::Table).to_owned())
