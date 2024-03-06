@@ -25,6 +25,8 @@ pub async fn create_user(
         });
     }
 
+    println!("incoming user is: {:?}", user);
+
     // let mut model = User::ActiveModel{
     //     id:ActiveValue::NotSet,
     //     email:ActiveValue::NotSet,

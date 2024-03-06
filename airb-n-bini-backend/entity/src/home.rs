@@ -15,7 +15,7 @@ pub struct Model {
     pub country: Option<String>,
     pub photo: Option<String>,
     pub price: Option<i32>,
-    pub category_name: Option<i32>,
+    pub category_name: Option<String>,
     pub created_at: DateTime,
     pub user_id: Option<String>,
 }

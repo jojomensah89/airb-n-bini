@@ -10,7 +10,7 @@ pub struct UserModel {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct CreateUserModel {
     pub id: String,
     pub first_name: String,

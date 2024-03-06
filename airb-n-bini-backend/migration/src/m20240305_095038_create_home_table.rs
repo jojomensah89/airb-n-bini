@@ -23,7 +23,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Home::Country).string())
                     .col(ColumnDef::new(Home::Photo).string())
                     .col(ColumnDef::new(Home::Price).integer())
-                    .col(ColumnDef::new(Home::CategoryName).integer())
+                    .col(ColumnDef::new(Home::CategoryName).string())
                     .col(ColumnDef::new(Home::CreatedAt).date_time().not_null())
                     .col(ColumnDef::new(Home::UserId).string())
                     .foreign_key(
