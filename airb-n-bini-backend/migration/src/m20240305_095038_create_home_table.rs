@@ -25,7 +25,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Home::Price).integer())
                     .col(ColumnDef::new(Home::CategoryName).string())
                     .col(ColumnDef::new(Home::CreatedAt).date_time().not_null())
-                    .col(ColumnDef::new(Home::UserId).string())
+                    .col(ColumnDef::new(Home::UserId).string().not_null())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-homes-users-id")

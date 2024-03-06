@@ -1,4 +1,4 @@
-use chrono::DateTime;
+// use crate::models::user_model::UserMicroModel;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -16,7 +16,7 @@ pub struct HomeModel {
     pub price: Option<i32>,
     pub category_name: Option<String>,
     pub created_at: NaiveDateTime,
-    pub user_id: Option<String>,
+    pub user_id: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -30,10 +30,10 @@ pub struct CreateHomeModel {
     pub photo: Option<String>,
     pub price: Option<i32>,
     pub category_name: Option<String>,
-    pub user_id: Option<String>,
+    pub user_id: String,
 }
 
-#[derive(Serialize, Deserialize, Debug,PartialEq,Clone)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct UpdateHomeModel {
     pub id: Uuid,
     pub title: Option<String>,
@@ -46,6 +46,5 @@ pub struct UpdateHomeModel {
     pub price: Option<i32>,
     pub category_name: Option<String>,
     pub created_at: NaiveDateTime,
-    pub user_id: Option<String>,
+    pub user_id: String,
 }
-

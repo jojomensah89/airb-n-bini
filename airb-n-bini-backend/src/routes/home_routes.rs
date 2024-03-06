@@ -6,7 +6,7 @@ use axum::{
     Router,
 };
 
-use crate::controllers::home_controller::{create_home, delete_home, get_homes,};
+use crate::controllers::home_controller::{create_home, delete_home, get_homes};
 use tower_http::cors::{Any, CorsLayer};
 
 pub async fn home_routes() -> Router {

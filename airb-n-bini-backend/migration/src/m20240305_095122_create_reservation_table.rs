@@ -31,8 +31,8 @@ impl MigrationTrait for Migration {
                             .date_time()
                             .not_null(),
                     )
-                    .col(ColumnDef::new(Reservation::UserId).string())
-                    .col(ColumnDef::new(Reservation::HomeId).uuid())
+                    .col(ColumnDef::new(Reservation::UserId).string().not_null())
+                    .col(ColumnDef::new(Reservation::HomeId).uuid().not_null())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-reservations-users-id")

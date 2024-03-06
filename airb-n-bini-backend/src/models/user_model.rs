@@ -19,9 +19,14 @@ pub struct CreateUserModel {
     pub profile_image: Option<String>,
 }
 
-pub struct UpdateUserModel {
-    pub name: String,
-    pub email: String,
-    pub password: String,
-    pub uuid: Uuid,
-}
+// pub struct UpdateUserModel {
+//     pub name: String,
+//     pub email: String,
+//     pub password: String,
+//     pub uuid: Uuid,
+// }
+
+// #[derive(Serialize, Deserialize, Clone)]
+// pub struct UserMicroModel {
+//     pub id: String,
+// }

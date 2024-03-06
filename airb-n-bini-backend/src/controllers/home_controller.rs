@@ -1,8 +1,8 @@
 use crate::{
-    models::home_model::{CreateHomeModel, HomeModel, UpdateHomeModel},
+    models::home_model::{CreateHomeModel, HomeModel},
     utils::api_error::APIError,
 };
-use axum::{http::StatusCode, Extension, Json,  extract::Path};
+use axum::{extract::Path, http::StatusCode, Extension, Json};
 use chrono::Utc;
 use entity::home::{self as Home, ActiveModel};
 use sea_orm::{ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set};
@@ -22,7 +22,6 @@ pub async fn create_home(
     //     last_name:ActiveValue::NotSet,
     //     profile_image:ActiveValue::NotSet,
     // };
-
 
     let home_model = ActiveModel {
         id: Set(Uuid::new_v4()),
@@ -49,9 +48,9 @@ pub async fn create_home(
             .map(|category_name| String::from(category_name))),
         created_at: Set(Utc::now().naive_utc()),
 
-        user_id: Set(home.user_id.as_ref().map(|user_id| String::from(user_id))),
+        user_id: Set(home.user_id),
     };
-    let home = home_model.insert(&db).await.map_err(|err| APIError {
+    let _home = home_model.insert(&db).await.map_err(|err| APIError {
         message: err.to_string(),
         status_code: StatusCode::INTERNAL_SERVER_ERROR,
         error_code: Some(50),
@@ -110,7 +109,6 @@ pub async fn get_homes(
 //     .ok_or(APIError { message: "Not Found".to_owned(), status_code: StatusCode::NOT_FOUND, error_code: Some(44) })?
 //     .into();
 
-
 //     // if home_exists == None {
 //     //     return Err(APIError {
 //     //         message: "Home doesn't exists".to_owned(),
@@ -125,25 +123,36 @@ pub async fn get_homes(
 //      home_exists.update(&db).await
 //     .map_err(|err| APIError { message: err.to_string(), status_code:StatusCode::INTERNAL_SERVER_ERROR, error_code: Some(50)})?;
 
-
 //     Ok(())
 // }
 
 pub async fn delete_home(
     Extension(db): Extension<DatabaseConnection>,
-    Path(id):Path<Uuid>
+    Path(id): Path<Uuid>,
 ) -> Result<(), APIError> {
-
-    let home = entity::home::Entity::find()
-    .filter(entity::home::Column::Id.eq(id))
-    .one(&db).await
-    .map_err(|err| APIError { message: err.to_string(), status_code:StatusCode::INTERNAL_SERVER_ERROR, error_code: Some(50)})?
-    .ok_or(APIError { message: "Not Found".to_owned(), status_code: StatusCode::NOT_FOUND, error_code: Some(44) })?;
+    let _home = entity::home::Entity::find()
+        .filter(entity::home::Column::Id.eq(id))
+        .one(&db)
+        .await
+        .map_err(|err| APIError {
+            message: err.to_string(),
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+            error_code: Some(50),
+        })?
+        .ok_or(APIError {
+            message: "Not Found".to_owned(),
+            status_code: StatusCode::NOT_FOUND,
+            error_code: Some(44),
+        })?;
 
     entity::home::Entity::delete_by_id(id)
-    .exec(&db)
-    .await
-    .map_err(|err| APIError { message: err.to_string(), status_code:StatusCode::INTERNAL_SERVER_ERROR, error_code: Some(50)})?;
+        .exec(&db)
+        .await
+        .map_err(|err| APIError {
+            message: err.to_string(),
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+            error_code: Some(50),
+        })?;
 
     Ok(())
 }

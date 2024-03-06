@@ -17,8 +17,8 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(ColumnDef::new(Favorite::Id).uuid().not_null().primary_key())
                     .col(ColumnDef::new(Favorite::CreatedAt).date_time().not_null())
-                    .col(ColumnDef::new(Favorite::UserId).string())
-                    .col(ColumnDef::new(Favorite::HomeId).uuid())
+                    .col(ColumnDef::new(Favorite::UserId).string().not_null())
+                    .col(ColumnDef::new(Favorite::HomeId).uuid().not_null())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-favorites-users-id")

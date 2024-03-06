@@ -8,7 +8,7 @@ pub async fn create_user(
     Json(user): Json<CreateUserModel>,
 ) -> Result<(), APIError> {
     let user_exists = User::Entity::find()
-        .filter(entity::user::Column::Email.eq(user.email.clone()))
+        .filter(entity::user::Column::Id.eq(user.id.clone()))
         .one(&db)
         .await
         .map_err(|err| APIError {
@@ -39,10 +39,7 @@ pub async fn create_user(
         email: Set(String::from(user.email)),
         first_name: Set(String::from(user.first_name)),
         last_name: Set(String::from(user.last_name)),
-        profile_image: Set(user.profile_image.as_ref().map(|image| {
-            // Assuming the image is always valid (handle potential None if necessary)
-            String::from(image)
-        })),
+        profile_image: Set(user.profile_image.as_ref().map(|image| String::from(image))),
     };
     let user = user_model.insert(&db).await.map_err(|err| APIError {
         message: err.to_string(),

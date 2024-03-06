@@ -17,7 +17,7 @@ pub struct Model {
     pub price: Option<i32>,
     pub category_name: Option<String>,
     pub created_at: DateTime,
-    pub user_id: Option<String>,
+    pub user_id: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
