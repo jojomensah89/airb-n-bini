@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { categoryItems } from "@/lib/categoryItem";
+import { categoryItems } from "@/lib/categoryItems";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -33,7 +33,7 @@ export function MapFilterItems() {
             search === item.name
               ? "border-b-2 border-black pb-2 flex-shrink-0"
               : "opacity-70 flex-shrink-0",
-            "flex flex-col gap-y-3 items-center hover:bg-rose-600"
+            "flex flex-col gap-y-3 items-center hover:border-b-2 border-black pb-2 flex-shrink-0"
           )}
         >
           <div className="relative w-6 h-6">
